@@ -2,57 +2,77 @@
 #include <E101.h>
 #include <time.h>
 
+/* using a variable for the standard speed of the motors will make it easier to update the speed used in all the commands if the motor is too fast or slow */
+int standardSpeed = 100;
 
+/* Different method for driving forward, no need for a loop. Set motors to standard speed, sleep for duration seconds, stop motors. */
 int driveForward(duration){
-for (int i = 0; i < duration; i++){  
-/* This was an idea from another person in the lab. I assume we can alter this to make the motor run longer. For now I think it is just suppose to run until it runs for longer then never i.e ‘int i = 0’
-I didn’t put it in any of the others yet though. Will try when needed*/
 
-set_motor(1, 255);
-sleep1(0, 500000);
-set_motor(2, 255);
-sleep(0, 500000);
+  set_motor(1, standardSpeed);
+  set_motor(2, standardSpeed);
+  
+  sleep1(duration,000000);
+  
+  set_motor(1, 0);
+  set_motor(2, 0);
+  
+return 0;
 }
-return 0;)
 
-/*This should drive the motors forward. Set at 255 but can be changed as needed. It also assumes one of the motors is upside down and therefore does not need a negative value to run the same way as the other motor.*/
+/* Applied similar principles to turnLeft and turnRight. This code assumes motor 1 is on the left and motor 2 is on the right. */
 
+int turnLeft(duration) {
 
-int turnLeft(int duration){
-set_motor(1, 127);
-sleep1(0, 500000);
-set_motor(2, -255);
-sleep(0, 500000);
+  set_motor(1, -standardSpeed);
+  set_motor(2, standardSpeed);
+  
+  sleep1(duration, 000000);
+  
+  set_motor(1, 0);
+  set_motor(2, 0);
+
+return 0;
 }
-return 0;)
 
+int turnRight(duration) {
 
-int turnRight(int duration){
-set_motor(1, 255);
-sleep1(0, 500000);
-set_motor(2, -127);
-sleep(0, 500000);
+  set_motor(1, standardSpeed);
+  set_motor(2, -standardSpeed);
+  
+  sleep1(duration, 000000);
+  
+  set_motor(1, 0);
+  set_motor(2, 0);
+
+return 0;
 }
-return 0;)
-/*This depends on which way around the motors are. Depending on which one is upside down.*/
 
+/* This is basically just driveForward with the standard speed set to negative. */
 int driveBackward(duration){
-set_motor(1, -127);
-sleep1(0, 500000);
-set_motor(2, -127);
-sleep(0, 500000);
+
+  set_motor(1, -standardSpeed);
+  set_motor(2, -standardSpeed);
+  
+  sleep1(duration,000000);
+  
+  set_motor(1, 0);
+  set_motor(2, 0);
+  
+return 0;
 }
-return 0;)
 
-/* This should be able to make it drive in reverse. I hope. Though it wasn’t working in Monday lab. Not sure why.*/
 
+/* Didn't change much in detect method other than formatting. */
 
 int detect(duration){
-adc_reading = read_analog(0);
-if (adc_reading > 100){
-set_motor(1, -127);
-sleep1(0, 500000);
-set_motor(2, 127);
-sleep(0, 500000);
+
+  adc_reading = read_analog(0);
+  
+  if (adc_reading > 100){
+    set_motor(1, -127);
+    set_motor(2, 127);
+    sleep1(0, 500000);
+  }
+  
+return 0;
 }
-return 0;)
