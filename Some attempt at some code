@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <E101.h>
+#include <time.h>
+
+
+int driveForward(duration){
+for (int i = 0; i < duration; i++){  
+/* This was an idea from another person in the lab. I assume we can alter this to make the motor run longer. For now I think it is just suppose to run until it runs for longer then never i.e ‘int i = 0’
+I didn’t put it in any of the others yet though. Will try when needed*/
+
+set_motor(1, 255);
+sleep1(0, 500000);
+set_motor(2, 255);
+sleep(0, 500000);
+}
+return 0;)
+
+/*This should drive the motors forward. Set at 255 but can be changed as needed. It also assumes one of the motors is upside down and therefore does not need a negative value to run the same way as the other motor.*/
+
+
+int turnLeft(int duration){
+set_motor(1, 127);
+sleep1(0, 500000);
+set_motor(2, -255);
+sleep(0, 500000);
+}
+return 0;)
+
+
+int turnRight(int duration){
+set_motor(1, 255);
+sleep1(0, 500000);
+set_motor(2, -127);
+sleep(0, 500000);
+}
+return 0;)
+/*This depends on which way around the motors are. Depending on which one is upside down.*/
+
+int driveBackward(duration){
+set_motor(1, -127);
+sleep1(0, 500000);
+set_motor(2, -127);
+sleep(0, 500000);
+}
+return 0;)
+
+/* This should be able to make it drive in reverse. I hope. Though it wasn’t working in Monday lab. Not sure why.*/
+
+
+int detect(duration){
+adc_reading = read_analog(0);
+if (adc_reading > 100){
+set_motor(1, -127);
+sleep1(0, 500000);
+set_motor(2, 127);
+sleep(0, 500000);
+}
+return 0;)
